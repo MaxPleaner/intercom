@@ -98,7 +98,9 @@ puts "get '/user_locator' => views/user_locator.erb\n".yellow_on_black
 get "/user_locator" do
   @distance = params[:distance] || 100
   @customers = UserLocator.active_record_geocoder(customers: parse_customers_as_json, distance: @distance.to_i)
-  @excluded_users = Customer.where("id NOT in (?)", @customers.select(:id).map(&:id)) # pluck doesnt work with Geocoder ...
+  @excluded_users = Customer.where("id NOT in (?)", @customers.select(:id).map(&:id))
+                                                              # using select+map because pluck causes a bug in Geocoder
+                                                              # https://github.com/alexreisner/geocoder/issues/166
   erb :user_locator
 end
 
