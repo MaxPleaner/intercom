@@ -1,0 +1,19 @@
+<section class="section">
+  <b>Here is a map highlighting the users included in the distance-filtered results: </b><br><br>
+  <form action="/user_locator" method="GET">
+    <input type="number" name="distance" value="<%= @distance %>">
+    <input type="submit" value="use a different distance filter (miles)">
+  </form> <br> <br>
+  <%= erb :user_locator_map %>    
+</section>
+
+<section class="section">
+  <b>Here are the results from using the
+  <a href="https://github.com/alexreisner/geocoder">geocoder</a>
+  gem with active record</b> <br>(These are ordered by distance, ascending)<br><br>
+  <pre>
+    <%= h @customers.map { |cust| cust.attributes.ai(html: true) }.join.html_safe  %>
+    <%# Kernel's instance method "ai" comes from awesome_print %>
+    <%# The "h" method comes from including ERB::Utils in server.rb %>
+  </pre><br><br>
+</section>

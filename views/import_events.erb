@@ -1,0 +1,33 @@
+<% if @message %>
+  <div class="section error">
+    <%= @message %> <br>
+  </div>
+<% end %>
+
+<% if @events %>
+  <h2>Authorized with Google Calendar</h2>
+  <% if @new_events %>
+    <div class="section">
+      <h4>New events created:</h4>
+      <% @new_events.each do |event| %>
+        <div class="section">
+          <li><a href="<%= event.html_link %>">Link</a></li>
+          <li><%= event.description %></li>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+  <div class="section">
+    <h4>Your next 1000 scheduled events in the "primary" calendar: </h4>
+    <% @events.first(1000).each do |event| %>
+      <pre><%= h event.ai(html: true) %></pre>
+    <% end %>
+  </div>
+<% else %>
+  <div class="section">
+    <a href="<%= @google_auth_confirmation_uri || "#" %>">Authorize with google calendar</a> <br>
+    <i>This will import a few (4) events into your calendar.</i> <br>
+    <i>Your oAuth credentials are never stored as a cookie or in the database. They are only used for a single request.</i> <br>
+    <i>Note you will have to log into the site again once the Google callback URL is hit</i>
+  </div>
+<% end %>
