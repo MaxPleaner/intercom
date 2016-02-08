@@ -34,7 +34,7 @@ Steps needed to run locally:
 - install postgres, create a postgres database with the name specified in server.rb i.e. `localhost/mydb3`
 - Set up google developers account, enable Calendar and Maps APIs.
   - For Maps, just get the API key
-  - for Calendar, set up as oAuth2 provider. Make sure to set the redirect uri. Download the credentials into `lib/client_secret.json`.
+  - for Calendar, set up as oAuth2 provider. Make sure to set the redirect uri to `ROOT_URL/oauth2callback` and it is the same as `Events::OOB_URI`. Download the credentials into `lib/client_secret.json`.
 - download the customers.txt file (from the challenge prompt gist) into `lib/customers.txt`
 - `bundle` and `rackup`.
 
