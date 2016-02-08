@@ -40,6 +40,3 @@ Steps needed to run locally:
 
 
 ---
-
-
-`<rant>` The Google Calendar docs / guides are outdated`</rant>` 
