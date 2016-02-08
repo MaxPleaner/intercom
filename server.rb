@@ -56,6 +56,9 @@ Dotenv.load # sets environment variables from .env file
 
 include ERB::Util # defines an "h" method akin to rails' "raw"
                   # for printing unescaped html
+                  # This is used alongside awesome_print's 'ai' method
+                  # In general it's insecure to print user-generated content as unescaped HTML,
+                  # but in this situation the records are all pre-verified.
 
 # variables used for basic HTTP auth
 # loaded from the .env file
@@ -89,9 +92,10 @@ until ENV["GOOGLE_CALENDAR_API_KEY"]
   raise(StandardError, "Environment variable not set")
 end
 
-puts "The server will now run. Go to localhost:4567 in the browser".yellow_on_black
+puts "The server will now run".yellow_on_black
 
 puts "\n***** Routes ***** \n".red_on_black
+# In the console, a summary of all the routes is printed when the server starts.
 
 puts "get '/' => views/root.erb\n".yellow_on_black
 get "/" do
@@ -114,7 +118,8 @@ get "/proudest_achievement" do
   erb :proudest_achievement
 end
 
-puts "get '/import_events' => views/import_events.erb"
+puts "get '/import_events' => views/import_events.erb".yellow_on_black
+puts "get '/events' => views/events.erb".yellow_on_black
 get "/import_events", "/events" do
   @message = params[:message]
   if params[:google_calendar_auth_code].blank?

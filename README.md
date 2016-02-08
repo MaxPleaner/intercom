@@ -27,6 +27,6 @@ Here's an outline of the files:
 - `views/import_events.erb`: HTML page for the Events section of the app
 - `views/layout.erb`: the application layout, used by all the HTML pages
 - `views/proudest_achievement.rb`: HTML page for my achievement(s)
-- `views/root.erb`: the `"/"` (root) route, links to the other pages
+- `views/root.erb`: HTML for the `"/"` (root) route, links to the other pages
 - `views/user_locator.erb`: HTML page for the distance-filter section
 - `views/user_locator_map.erb`: Javascript / HTML code for Google Maps

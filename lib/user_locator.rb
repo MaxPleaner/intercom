@@ -3,6 +3,7 @@ module UserLocator
     customers, distance = options.values_at(:customers, :distance)
     raise ArgumentError unless [customers, distance].all?
     customers.each do |customer|
+      # create all customers, but skip duplicates
       Customer.create(customer) unless Customer.exists?(user_id: customer['user_id'])
     end
     # raise an error unless all the companies were created from JSON

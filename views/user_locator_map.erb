@@ -1,9 +1,6 @@
 <div id="map"></div>
 <script>
   var map, included_users, excluded_users, markers, marker, latLng, icon
-  function getIcon(color) {
-      return MapIconMaker.createMarkerIcon({width: 20, height: 34, primaryColor: color, cornercolor:color});
-  }
   function addUserToMap(options) {
     latLng = {lat: options['user']['latitude'], lng: options['user']['longitude']}
     if (options['included'] == true) {
@@ -21,11 +18,14 @@
     })
   }
   function initMap() {
+    // this function is run as a callback when the Google Maps JS library is loaded
     map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 53.3381985, lng: -6.2592576},
       zoom: 6
     });
-    included_users = JSON.parse('<%= @customers.to_json %>')
+    // @customers denotes people within the distance-filter's bounds
+    // @excluded_users repesents people outside the bounds
+    included_users = JSON.parse('<%= @customers.to_json %>') // pass variables from Ruby to JS
     excluded_users = JSON.parse('<%= @excluded_users.to_json %>')
     included_users.forEach(function(user){
       addUserToMap({user: user, map: map, included: true})
