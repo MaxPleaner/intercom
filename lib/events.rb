@@ -4,7 +4,7 @@ require 'googleauth/stores/file_token_store'
 require 'fileutils'
 
 module Events
-  OOB_URI = 'https://lljbsfeqaq.localtunnel.me/oauth2callback'
+  OOB_URI = 'https://maxp-intercom.herokuapp.com/oauth2callback'
   APPLICATION_NAME = 'Intercom interview'
   CLIENT_SECRETS_PATH = './lib/client_secret.json'
   CREDENTIALS_PATH = "./lib/google_credentials.yaml"
