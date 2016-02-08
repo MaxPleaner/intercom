@@ -15,10 +15,6 @@ require './lib/seed_events.rb'
 
 Dotenv.load # sets environment variables from .env file
 
-# No command line arguments are accepted
-# Do this to ensure that they don't interfere with "gets"
-raise(StandardError, "No command line arguments are accepted") unless ARGV.blank?
-
 include ERB::Util # defines an "h" method akin to rails' "raw"
                   # for printing unescaped html
 
