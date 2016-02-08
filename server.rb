@@ -104,8 +104,11 @@ end
 
 puts "get '/user_locator' => views/user_locator.erb\n".yellow_on_black
 get "/user_locator" do
+  # Get distance from params, or use a default
   @distance = params[:distance] || 100
+  # These are the customers within the bounds of the distance
   @customers = UserLocator.active_record_geocoder(customers: parse_customers_as_json, distance: @distance.to_i)
+  # These are the customers outside the bounds of the distance
   @excluded_users = Customer.where("id NOT in (?)", @customers.select(:id).map(&:id))
                                                               # using select+map because pluck causes a bug in Geocoder
                                                               # https://github.com/alexreisner/geocoder/issues/166
@@ -119,13 +122,16 @@ get "/proudest_achievement" do
 end
 
 puts "get '/import_events' => views/import_events.erb".yellow_on_black
-puts "get '/events' => views/events.erb".yellow_on_black
+puts "get '/events' => views/import_events.erb".yellow_on_black
 get "/import_events", "/events" do
-  @message = params[:message]
+  @message = params[:message] # pass along a message string, used for errors
   if params[:google_calendar_auth_code].blank?
+    # If no auth code is given, the user hasn't verified Google Calendar OAuth.
+    # If this is the case, present them with a URI to visit and confirm with google. 
     @google_auth_confirmation_uri = Events.google_calendar_credentials
-    # show the (external) authorization link on the HTML page
   else
+    # If there is an authorization code given, the user has already confirmed oAuth.
+    # Use this code to begin making Calendar API requests
     service = Google::Apis::CalendarV3::CalendarService.new
     service.client_options.application_name = Events::APPLICATION_NAME
     begin
@@ -139,8 +145,8 @@ get "/import_events", "/events" do
     # create events
     @new_events = SeedEvents.map do |event| # see lib/seed_events.rb
       service.insert_event( calendar_id, Google::Apis::CalendarV3::Event.new(
-        summary: event[:occasion],
-        description: event.ai(html: true),
+        summary: event[:occasion], # the "title" for the event
+        description: event.ai(html: true), # just dump the attributes for the description
         attachments: [],
         attendes: [],
         reminders: nil,

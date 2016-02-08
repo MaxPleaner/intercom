@@ -7,7 +7,7 @@ The source code is commented and is hopefully self-documenting.
 
 In summary ...
 - There is a page which says my "proudest accomplishment"
-- There is a page which implements a distance-filter on customer records. It displays this filter using Google Maps.
+- There is a page which implements a distance-filter on customer records (sorting customers by proximity to a central location). It displays this filter using Google Maps.
 - There is a page which imports events into Google Calendar (using oAuth2) and displays the user's upcoming events.
 
 Here's an outline of the files:
@@ -30,3 +30,17 @@ Here's an outline of the files:
 - `views/root.erb`: HTML for the `"/"` (root) route, links to the other pages
 - `views/user_locator.erb`: HTML page for the distance-filter section
 - `views/user_locator_map.erb`: Javascript / HTML code for Google Maps
+
+Steps needed to run locally:
+- install postgres, create a postgres database with the name specified in server.rb i.e. `localhost/mydb3`
+- Set up google developers account, enable Calendar and Maps APIs.
+  - For Maps, just get the API key
+  - for Calendar, set up as oAuth2 provider. Make sure to set the redirect uri. Download the credentials into `lib/client_secret.json`.
+- download the customers.txt file (from the challenge prompt gist) into `lib/customers.txt`
+- `bundle` and `rackup`.
+
+
+---
+
+
+`<rant>` The Google Calendar docs / guides are outdated`</rant>` 
