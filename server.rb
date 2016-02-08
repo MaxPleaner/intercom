@@ -1,4 +1,5 @@
 require 'json'
+require 'pg'
 require 'sinatra'
 require 'sinatra/multi_route'
 require 'active_support/core_ext/string'

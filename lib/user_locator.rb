@@ -21,9 +21,14 @@ module UserLocator
     customers, distance = options.values_at(:customers, :distance)
     raise ArgumentError unless [customers, distance].all?
     `rm ./lib/database.sqlite` rescue nil # start anew every time
+    db = URI.parse(ENV['DATABASE_URL'] || 'postgres:///localhost/mydb')
     ActiveRecord::Base.establish_connection(
-      :adapter => "sqlite3",
-      :database  => "./lib/database.sqlite" 
+      :adapter  => db.scheme == 'postgres' ? 'postgresql' : db.scheme,
+      :host     => db.host,
+      :username => db.user,
+      :password => db.password,
+      :database => db.path[1..-1],
+      :encoding => 'utf8'
     )
     CreateCustomers.migrate(:up)
     customers.each do |customer|

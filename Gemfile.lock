@@ -61,9 +61,11 @@ GEM
     multi_json (1.11.2)
     multipart-post (2.0.0)
     os (0.9.6)
+    pg (0.18.4)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
+    rack-ssl-enforcer (0.2.9)
     rack-test (0.6.3)
       rack (>= 1.0)
     representable (2.3.0)
@@ -104,6 +106,8 @@ DEPENDENCIES
   geocoder
   google-api-client
   json
+  pg
+  rack-ssl-enforcer
   sinatra
   sinatra-contrib
 

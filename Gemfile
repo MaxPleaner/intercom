@@ -11,4 +11,4 @@ gem "awesome_print" # nice HTML dumps of ruby objects, with syntax highlighting.
 gem "colored" # ANSI coloring of text, for console output
 gem "dotenv" # environment variable loading. See .env.example file
 gem "rack-ssl-enforcer" # force SSL
-
+gem "pg" # postgres database ... heroku doesnt support sqlite
