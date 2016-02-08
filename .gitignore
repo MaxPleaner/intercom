@@ -1,3 +1,4 @@
 .env
 lib/client_secret.json
 lib/google_credentials.yaml
+lib/customers.txt

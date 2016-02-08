@@ -18,7 +18,7 @@ Here's an outline of the files:
 - `.env.example`: a template for `.env`, which  sets environment variables for basic HTTP auth and Google API credentials
 - `server.rb`: **the core of the app**, includes model definitions and routes
 - `lib/client_secret.json.example`: template for `lib/client_secret.json`, which is the Google credentials downloaded from their developer console
-- `lib/customers.txt`: the source for customers, taken from the challenge prompt gist. The app coerces this data into JSON.
+- `lib/customers.txt`: the source for customers, taken from the challenge prompt gist. The app coerces this data into JSON. Not included in source control, to respect data privacy
 - `lib/events.rb`: uses Google Calendar to import / display some events.
 - `lib/google_credentials.yaml`: isn't present in source control, created by the app when it is running. 
 - `lib/proudest_achievement.rb`: some text about my achievement(s)
