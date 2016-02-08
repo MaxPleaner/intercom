@@ -10,5 +10,5 @@ gem "google-api-client" # For Google Calendar and Google Maps
 gem "awesome_print" # nice HTML dumps of ruby objects, with syntax highlighting. Defines `ap` and `ai` methods.
 gem "colored" # ANSI coloring of text, for console output
 gem "dotenv" # environment variable loading. See .env.example file
-
+gem "rack-ssl-enforcer" # force SSL
 

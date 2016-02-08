@@ -5,6 +5,7 @@ require 'active_support/core_ext/string'
 require 'awesome_print'
 require 'colored'
 require 'dotenv'
+require 'rack-ssl-enforcer'
 
 require "./lib/proudest_achievement.rb"
 require "./lib/user_locator.rb"
@@ -26,11 +27,6 @@ basic_auth_username = ENV["BASIC_AUTH_USERNAME"]
 basic_auth_password = ENV["BASIC_AUTH_PASSWORD"]
 unless [basic_auth_username, basic_auth_password].all?
   raise(StandardError, "Env Vars not set") 
-end
-
-# require login to use the site at all
-use Rack::Auth::Basic, "Restricted Area" do |username, password|
-  username == ENV["BASIC_AUTH_USERNAME"] and password == ENV["BASIC_AUTH_PASSWORD"]
 end
 
 # Customers.txt doesnt appear to be in a standard
