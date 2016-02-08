@@ -7,11 +7,46 @@ require 'awesome_print'
 require 'colored'
 require 'dotenv'
 require 'rack-ssl-enforcer'
+require 'active_record'
+require 'geocoder'
 
 require "./lib/proudest_achievement.rb"
 require "./lib/user_locator.rb"
 require "./lib/events.rb"
 require './lib/seed_events.rb'
+
+# setup the db
+db = URI.parse(ENV['DATABASE_URL'] || 'postgres:///localhost/mydb3')
+ActiveRecord::Base.establish_connection(
+  :adapter  => db.scheme == 'postgres' ? 'postgresql' : db.scheme,
+  :host     => db.host,
+  :username => db.user,
+  :password => db.password,
+  :database => db.path[1..-1],
+  :encoding => 'utf8'
+)
+class CreateCustomers < ActiveRecord::Migration
+  def change
+    create_table :customers do |t|
+      t.string :name
+      t.integer :user_id
+      t.float :latitude
+      t.float :longitude
+    end
+  end
+end
+
+begin
+  CreateCustomers.migrate(:up)
+rescue ActiveRecord::StatementInvalid
+  # rescue if the migrations have already been run
+  nil
+end
+
+class Customer < ActiveRecord::Base
+  extend Geocoder::Model::ActiveRecord
+  reverse_geocoded_by :latitude, :longitude
+end
 
 Dotenv.load # sets environment variables from .env file
 
@@ -63,7 +98,7 @@ puts "get '/user_locator' => views/user_locator.erb\n".yellow_on_black
 get "/user_locator" do
   @distance = params[:distance] || 100
   @customers = UserLocator.active_record_geocoder(customers: parse_customers_as_json, distance: @distance.to_i)
-  @excluded_users = UserLocator::Customer.where("id NOT in (?)", @customers.pluck(:id))
+  @excluded_users = Customer.where("id NOT in (?)", @customers.select(:id).map(&:id)) # pluck doesnt work with Geocoder ...
   erb :user_locator
 end
 
