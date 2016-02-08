@@ -106,7 +106,7 @@ end
 
 puts "get '/proudest_achievement' => views/proudest_achievement.erb\n".yellow_on_black
 get "/proudest_achievement" do
-  @proudest_achievement = ProduestAchievement # see lib/proudest_achievement.rb
+  @proudest_achievement = ProudestAchievement # see lib/proudest_achievement.rb
   erb :proudest_achievement
 end
 
