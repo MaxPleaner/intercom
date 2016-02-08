@@ -14,7 +14,7 @@ Here's an outline of the files:
 - `Gemfile`: dependencies
 - `config.ru`: intructions for how heroku should start the app
   - includes a couple plugins ... SSL forcing and basic HTTP auth
-- `.gitignore`: everything is on git except `.env`, `lib/google_credentials.yaml` and `lib/client_secrets.json`. With postgres there's no need to ignore the db.
+- `.gitignore`: everything is on git except `.env`, `lib/customers.txt`, `lib/google_credentials.yaml` and `lib/client_secrets.json`. With postgres there's no need to ignore the db.
 - `.env.example`: a template for `.env`, which  sets environment variables for basic HTTP auth and Google API credentials
 - `server.rb`: **the core of the app**, includes model definitions and routes
 - `lib/customers.txt`: the source for customers, taken from the challenge prompt gist. The app coerces this data into JSON. Not included in source control, to respect data privacy
