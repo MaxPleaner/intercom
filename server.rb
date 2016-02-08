@@ -9,6 +9,10 @@ require 'dotenv'
 require 'rack-ssl-enforcer'
 require 'active_record'
 require 'geocoder'
+require 'google/apis/calendar_v3'
+require 'googleauth'
+require 'googleauth/stores/file_token_store'
+require 'fileutils'
 
 require "./lib/proudest_achievement.rb"
 require "./lib/user_locator.rb"

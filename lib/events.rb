@@ -1,9 +1,5 @@
-require 'google/apis/calendar_v3'
-require 'googleauth'
-require 'googleauth/stores/file_token_store'
-require 'fileutils'
-
 module Events
+  # Google Calendar config
   OOB_URI = 'https://maxp-intercom.herokuapp.com/oauth2callback'
   APPLICATION_NAME = 'Intercom interview'
   CLIENT_SECRETS_PATH = './lib/client_secret.json'
@@ -18,6 +14,9 @@ module Events
   # return credentials if options[:code] is given and valid
   # otherwise, return a redirect uri
   def self.google_calendar_credentials(options={})
+    # giving credit where due (the google example code) - https://developers.google.com/google-apps/calendar/quickstart/ruby
+    # This app does not implement the entire OAuth2 flow, though ... only the initial confirmation is used,
+    # The resultant access / refresh tokens arent used. 
     FileUtils.mkdir_p(File.dirname(CREDENTIALS_PATH))
     client_id = Google::Auth::ClientId.from_file(CLIENT_SECRETS_PATH)
     token_store = Google::Auth::Stores::FileTokenStore.new(file: CREDENTIALS_PATH)
