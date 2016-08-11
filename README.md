@@ -1,9 +1,9 @@
-# intercom
-a coding challenge for Intercom
 
 This is a Sinatra app using ActiveRecord and Postgres. It is hosted on Heroku.
 
 The source code is commented and is hopefully self-documenting.
+
+It was build as a coding challenge to a company. 
 
 In summary ...
 - There is a page which says my "proudest accomplishment"
